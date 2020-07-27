@@ -68,4 +68,4 @@ def home():
     return render_template('index.html', x = x, y = y, server_info = server_info, server_offline_data = server_offline_data)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

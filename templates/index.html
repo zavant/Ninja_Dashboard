@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Dashboard</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: sans-serif;
+            background: #5c5470;
+        }
+        .box-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            height: 100%;
+        
+        }
+        .offline-box, .offline-box1 {
+            width: 500px;
+            height: 350px;
+            border: 1px solid black;
+            text-align: center;
+            margin: 50px;
+        }
+        
+        .offline-box h2, .offline-box1 h2 {
+            display: flex;
+            color: #f3f6f6;
+            background: #352f44;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .offline-box h1, .offline-box1 h1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 200px;
+            color: #352f44;
+            background: #f3f6f6;
+            height: 298px;
+        }
+        
+        .table-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 1px 50px;
+            width: 500px;
+        }
+
+        th {
+            background: #2a2438;
+            height: 50px;
+            border: 1px solid black;
+            color: #f3f6f6;
+            font-weight: bold;
+            font-size: 30px;
+        }
+
+        td {
+            height: 50px;
+            font-size: 25px;
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        tr:nth-child(odd) {
+            background: #dbd8e3;
+        }
+        tr:nth-child(even) {
+            background: #f3f6f6;
+        }
+        @media(max-width:  1200px) {
+            .box-container {
+                display: grid;
+                justify-content: center;
+                align-items: center;
+                margin: 10px;
+                height: 100%;    
+            }
+            .table-container {
+                display: grid;
+                justify-content: center;
+            }
+            table {
+                border-collapse: collapse;
+                margin-bottom: 50px;
+            }
+        }
+        @media(max-width: 600px) {
+            .offline-box, .offline-box1 {
+                width: 300px;
+                height: 350px;
+                border: 1px solid black;
+                text-align: center;
+                margin: 25px;
+            }
+            .offline-box h1, .offline-box1 h1 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #352f44;
+                background: #f3f6f6;
+            }
+            .offline-box h2, .offline-box1 h2 {
+                display: flex;
+                color: #f3f6f6;
+                background: #352f44;
+                height: 50px;
+                align-items: center;
+                justify-content: center;
+            }
+            table {
+                border-collapse: collapse;
+                margin: 1px 50px;
+                width: 300px;
+            }
+            th {
+                background: #2a2438;
+                height: 20px;
+                border: 1px solid black;
+                color: #f3f6f6;
+                font-weight: bold;
+            }
+    
+            td {
+                height: 20px;
+                border: 1px solid black;
+                text-align: center;
+            }                      
+        }
+        @media(max-width: 415px) {
+            .box-container {
+                display: grid;
+                justify-content: center;
+                align-items: center;
+                margin: 1px;
+                height: 100%;    
+            }
+            .offline-box, .offline-box1 {
+                width: 300px;
+                height: 325px;
+                border: 1px solid black;
+                text-align: center;
+                margin: 20px 25px;
+            }
+                   
+            table {
+                border-collapse: collapse;
+                margin: 15px 50px;
+                width: 300px;
+            }
+            th {
+                background: #2a2438;
+                height: 25px;
+                font-size: 16px;
+                border: 1px solid black;
+                color: #f3f6f6;
+                font-weight: bold;
+            }
+            td {
+                height: 20px;
+                font-size: 16px;
+                border: 1px solid black;
+                text-align: center;
+            }                 
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="box-container">
+        <div class="offline-box">
+            <h2 class="title">Offline Servers</h2>
+            <h1>{{x}}</h1>
+        </div> 
+        <div class="offline-box1">
+            <h2 class="title">Server Needs Attention</h2>
+            <h1>{{y}}</h1>
+        </div>
+    </div>
+    <div class="table-container">
+        {% if x > 0 %}
+        <table>
+            <tr>
+                <th>Server Name</th>
+                <th>Client Name</th>
+            </tr>
+            {% for dict_item in server_offline_data %}
+            <tr>
+                {% for key in dict_item %}
+                    <td>{{dict_item[key]}}</td>
+                {% endfor %}
+            {% endfor %}
+            </tr>
+        {% endif %}
+            </table>
+        {% if y > 0 %}
+            <table>
+                <tr>
+                    <th>Server Name</th>
+                    <th>Client Name</th>
+                </tr>
+                {% for dict_item in server_info %}
+                <tr>
+                    {% for key in dict_item %}
+                        <td>{{dict_item[key]}}</td>
+                    {% endfor %}
+                {% endfor %}
+                </tr>
+        {% endif %}
+            </table>
+    </div>
+
+    <script type="text/javascript">
+        setTimeout(function () { 
+          location.reload();
+        }, 30 * 1000);
+    </script>
+
+</body>
+</html>
